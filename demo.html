@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+  <title>paper-date-picker</title>
+
+  <script src="../webcomponentsjs/webcomponents.js"></script>
+
+  <link href="../font-roboto/roboto.html" rel="import">
+  <link href="../paper-button/paper-button.html" rel="import">
+
+  <link href="paper-date-picker-dialog.html" rel="import">
+
+  <style shim-shadowdom>
+
+    body {
+      font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+      font-size: 14px;
+      margin: 0;
+      padding: 24px;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      -webkit-touch-callout: none;
+    }
+    section {
+      width: 300px;
+      margin:20px;
+    }
+    div{
+      margin:20px;
+    }
+    
+  </style>
+
+</head>
+<body unresolved>
+
+  <div style="background:rgb(255,200,200);padding:20px;">If this page is slow to load this is mostly due to the two thai/chinese date pickers at the end of this page. Chrome's HTML5 Intl implementation is far from the quickest, but this will probably improve over time.</div>
+
+  <section>
+    <div>Date picker</div>
+
+    <br>
+
+    <div>
+      <paper-date-picker></paper-date-picker>
+    </div>
+    
+    <div>
+      <paper-date-picker style="width:600px"></paper-date-picker>
+    </div>
+    
+
+  </section>
+ 
+  <section>
+    <div>Date picker dialog</div>
+
+    <br>
+    
+    <div style="margin-left:20px;">
+      <paper-date-picker-dialog></paper-date-picker-dialog>
+      <paper-button raised onClick="document.querySelectorAll('paper-date-picker-dialog')[0].open()">Open date picker dialog</paper-button>
+    </div>
+    <div style="margin-left:20px;">
+      <paper-date-picker-dialog date="2000/1/1"></paper-date-picker-dialog>
+      <paper-button raised onClick="document.querySelectorAll('paper-date-picker-dialog')[1].open()">Open date picker dialog on 1/1/2000</paper-button>
+    </div>
+    <div style="margin-left:20px;">
+      <paper-date-picker-dialog date="2014/1/1" min="2013/9/1" max="2014/8/31"></paper-date-picker-dialog>
+      <paper-button raised onClick="document.querySelectorAll('paper-date-picker-dialog')[2].open()">Open date picker dialog for academic year 2013-2014</paper-button>
+    </div>
+    <div style="margin-left:20px;">
+      <paper-date-picker-dialog infiniteScrolling="false"></paper-date-picker-dialog>
+      <paper-button raised onClick="document.querySelectorAll('paper-date-picker-dialog')[3].open()">Open date picker dialog without infinite scrolling</paper-button>
+    </div>
+  </section>
+  
+  <section style="margin-top:20px;">
+    <div>Internationalization</div>
+
+    <br>
+     <div style="margin-left:20px;">
+      <paper-date-picker style="width:600px" locale="th-TH-u-nu-thai-ca-chinese"></paper-date-picker>
+    </div>
+    <div style="margin-left:20px;">
+      <paper-date-picker-dialog locale="en-US"></paper-date-picker-dialog>
+      <paper-button raised onClick="document.querySelectorAll('paper-date-picker-dialog')[4].open()">Open US English date picker</paper-button>
+    </div>
+    <div style="margin-left:20px;">
+      <paper-date-picker-dialog locale="th-TH-u-nu-thai-ca-chinese"></paper-date-picker-dialog>
+      <paper-button raised onClick="document.querySelectorAll('paper-date-picker-dialog')[5].open()">Open thai-chinese date picker</paper-button>
+    </div>
+  </section>
+ 
+</body>
+</html>
