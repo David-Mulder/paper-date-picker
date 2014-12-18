@@ -23,11 +23,11 @@
       -webkit-tap-highlight-color: rgba(0,0,0,0);
       -webkit-touch-callout: none;
     }
-    section {
+    body > section {
       width: 300px;
       margin:20px;
     }
-    div{
+    section > div{
       margin:20px;
     }
     
@@ -36,7 +36,7 @@
 </head>
 <body unresolved>
 
-  <div style="background:rgb(255,200,200);padding:20px;">If this page is slow to load this is mostly due to the two thai/chinese date pickers at the end of this page. Chrome's HTML5 Intl implementation is far from the quickest, but this will probably improve over time.</div>
+  <div style="background:rgb(255,200,200);padding:20px;">The speed at which this page loads is primarily determined by the speed of your browsers Internationalization API implementation. In certain browsers it is excessively slow at the moment.</div>
 
   <section>
     <div>Date picker</div>

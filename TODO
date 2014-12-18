@@ -3,8 +3,7 @@ Required for release:
      - Firefox: Performance sluggish, see below
  2. Internationalization. Mostly done, but
      - first day of week is fixed as monday
-     - date preview in picker is always full month, day, full year (which actually looks fine, but goes against Android implementation)
-     - 
+     - date preview in picker is always full month, day, full year (which actually looks fine, but goes against the Android implementation)
 
 Would be nice:
  - Optional: Snap-to-month effect
