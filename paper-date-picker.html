@@ -227,6 +227,10 @@ Example:
       months: [],
       
       nonNumericDates: false,
+      
+      intl: {
+        
+      },
 
       renderMonths: function(start,end){
         start = cleanMonthDateArrayObject(start);
@@ -261,7 +265,7 @@ Example:
             var thisDate = new Date(Date.UTC(curYear, curMonth-1, i));
             month.days.push({
               n:i,
-              day: this.nonNumericDates ? Intl.DateTimeFormat(this.locale, {day: 'numeric' }).format(thisDate) : i,
+              day: this.intl.day(thisDate),
               enabled: thisDate >= this.min && thisDate <= this.max
             });
           }
@@ -278,9 +282,8 @@ Example:
       },
       
       localeChanged: function(){
-        if(isNaN(Intl.DateTimeFormat(this.locale, {day: 'numeric' }).format(new Date())*2)){
-          this.nonNumericDates = true;
-        }
+        this.intl = {};
+        this.intl.day = Intl.DateTimeFormat(this.locale, {day: 'numeric' }).format;
       },
 
       pickDate: function(e){

@@ -247,22 +247,32 @@ and to open the dialog
     year: 0,
     page: 0,
     
-    immediateDateChanged:function() {
-      this.dayOfWeek = Intl.DateTimeFormat(this.locale, {weekday: 'long'}).format(this.immediateDate);
-      this.dayOfMonth = Intl.DateTimeFormat(this.locale, {day: 'numeric'}).format(this.immediateDate);
-      this.monthShortName = Intl.DateTimeFormat(this.locale, {month: 'short'}).format(this.immediateDate);
-      this.formattedYear = Intl.DateTimeFormat(this.locale, {year: 'numeric'}).format(this.immediateDate);
+    intl: {},
+    
+    localeChanged: function(){
+      this.intl = {};
+      this.intl.dayOfWeek = Intl.DateTimeFormat(this.locale, {weekday: 'long'}).format
+      this.intl.day = Intl.DateTimeFormat(this.locale, {day: 'numeric'}).format;
+      this.intl.shortMonth = Intl.DateTimeFormat(this.locale, {month: 'short'}).format;
+      this.intl.year = Intl.DateTimeFormat(this.locale, {year: 'numeric'}).format;
+    },
+    
+    immediateDateChanged: function() {
+      this.dayOfWeek = this.intl.dayOfWeek(this.immediateDate);
+      this.dayOfMonth = this.intl.day(this.immediateDate);
+      this.monthShortName = this.intl.shortMonth(this.immediateDate);
+      this.formattedYear = this.intl.year(this.immediateDate);
       
       this.year = this.immediateDate.getFullYear();
     },
     
-    open:function() {
+    open: function() {
       this.$.dialog.open();
       this.$.datePicker.refreshScrollPosition();
       this.$.yearPicker.refreshScrollPosition();
     },
     
-    yearChanged:function() {
+    yearChanged: function() {
         var newDate = this.immediateDate.setYear(this.year);
         if(newDate < this.min){
           this.immediateDate = new Date(this.min); 
@@ -274,11 +284,11 @@ and to open the dialog
       this.page = 0;
     },
     
-    showYearPicker:function() {
+    showYearPicker: function() {
       this.page = 1;
     },
     
-    showDatePicker:function() {
+    showDatePicker: function() {
       this.page = 0;
     },
     
@@ -288,7 +298,7 @@ and to open the dialog
         this.value = this.immediateDate;
     },
     
-    pageChanged:function() {
+    pageChanged: function() {
       if (this.page == 0) {
         this.$.day.classList.add("selected");
         this.$.month.classList.add("selected");
@@ -326,6 +336,7 @@ and to open the dialog
         
         this.immediateDate = this.value;
       }
+      this.localeChanged();
       this.immediateDateChanged();
     }
     

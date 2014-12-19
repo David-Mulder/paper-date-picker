@@ -116,12 +116,19 @@
     // TODO: Why in the world is this a hard coded variable?
     yearElementHeight: 62,
     
-    setYearArray:function() {
+    intl:{},
+    
+    localeChanged: function(){
+      this.intl = {};
+      this.intl.year = Intl.DateTimeFormat(this.locale, {year: 'numeric'}).format;
+    },
+    
+    setYearArray: function() {
       this.yearArray = [];
       for (var i = this.min.getFullYear(); i <= this.max.getFullYear(); i++) {
         this.yearArray.push({
           n:i,
-          year: Intl.DateTimeFormat(this.locale, {year: 'numeric'}).format(new Date(i,1,1))
+          year: this.intl.year(new Date(i,1,1))
         });
       }
     },
@@ -133,17 +140,21 @@
       },0);
     },
     
-    yearChanged:function() {
+    yearChanged: function() {
       this.setYearArray();
       this.refreshScrollPosition();
     },
     
-    yearSelected:function(e) {
+    yearSelected: function(e) {
       for(i=0;i<e.path.length;i++){
         if(e.path[i].dataset && e.path[i].dataset.year){
           return this.year = parseInt(e.path[i].dataset.year);
         }
       }
+    },
+    
+    ready: function(){
+      this.localeChanged();
     }
     
   });
