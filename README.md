@@ -9,3 +9,7 @@ Installation & docs
 ===
 
 Install with `bower` and open `\bower_components\paper-date-picker` for the documentation
+
+Authors
+===
+David Mulder and Benjamin Monjoie at gdg Brussels 2014
