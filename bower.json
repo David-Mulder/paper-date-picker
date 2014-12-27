@@ -7,5 +7,5 @@
     "paper-button": "Polymer/paper-button#master",
     "paper-ripple": "Polymer/paper-ripple#master"
   },
-  "version": "0.1.2"
+  "version": "0.1.3"
 }
