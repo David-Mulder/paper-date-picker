@@ -136,7 +136,7 @@ and to open the dialog
       </div>
       <core-animated-pages transitions="cross-fade" class="datePickerContainer" selected="{{page}}">
         <section>
-          <paper-date-picker id="datePicker" min="{{min}}" max="{{max}}" date="{{ immediateDate }}" infiniteScrolling="{{infiniteScrolling}}" locale="{{locale}}" cross-fade></paper-date-picker>
+          <paper-date-picker id="datePicker" min="{{min}}" max="{{max}}" date="{{ immediateDate }}" infiniteScrolling="{{infiniteScrolling}}" locale="{{locale}}" startDayOfWeek="{{startDayOfWeek}}" cross-fade></paper-date-picker>
         </section>
         <section>
           <paper-year-picker id="yearPicker" min="{{min}}" max="{{max}}" year="{{ year }}" locale="{{locale}}" cross-fade></paper-year-picker>
@@ -237,7 +237,17 @@ and to open the dialog
        * @default user system
        * 
        */
-      locale: undefined
+      locale: undefined,
+      
+      /**
+       * Start day of week, expressed as 0-6
+       * 
+       * @attribute startDayOfWeek
+       * @type Integer
+       * @default 1
+       * 
+       */
+      startDayOfWeek: 1
     },
     
     dayOfWeek: '',

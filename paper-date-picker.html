@@ -211,7 +211,17 @@ Example:
          * @default undefined
          * 
          */
-        locale: undefined
+        locale: undefined,
+        
+        /**
+         * Start day of week, expressed as 0-6
+         * 
+         * @attribute startDayOfWeek
+         * @type Integer
+         * @default 1
+         * 
+         */
+        startDayOfWeek: 1
       },
       
       currentYear : 0,
@@ -252,12 +262,12 @@ Example:
           };
           
           date = new Date(Date.UTC(curYear, curMonth-1, 1));
-          startPoint = date.getDay();
+          startPoint = (date.getDay() - this.startDayOfWeek + 7) % 7;
           month.name = Intl.DateTimeFormat(this.locale, {month: 'long', year: 'numeric' }).format(date);
           date = new Date(Date.UTC(curYear, curMonth, 0));
           endPoint = date.getDate();      
           
-          for(i=0;i<startPoint-1;i++){
+          for(i=0;i<startPoint;i++){
             month.days.push(undefined);
           }
           
@@ -389,7 +399,7 @@ Example:
       ready: function(){
         
         this.weekDayNames = [];
-        for(var i=0;i<7;i++){
+        for(var i=this.startDayOfWeek-1;i<this.startDayOfWeek+6;i++){
           var date = new Date(Date.UTC(2000, 1, i, 0, 0, 0));
           this.weekDayNames.push(new Intl.DateTimeFormat(this.locale, {weekday:'narrow'}).format(date));
         }

@@ -2,7 +2,6 @@ Required for release:
  1. Cross browser issues, status:
      - Firefox: Performance sluggish, see below
  2. Internationalization. Mostly done, but
-     - first day of week is fixed as monday
      - date preview in picker is always full month, day, full year (which actually looks fine, but goes against the Android implementation)
 
 Would be nice:
@@ -20,3 +19,4 @@ Done:
  - Mobile per year selection (infinite scrolling works imperfectly on mobile)
  - immediateDate vs date (only after hitting OK the date should be set)
  - Got everything working cross browser
+ - first day of week is now a property, not based on locale
