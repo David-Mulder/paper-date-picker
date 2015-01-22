@@ -180,7 +180,7 @@ Example:
          * @type Date
          * @default 1/1/1900
          */
-        min: new Date(Date.UTC(1900,0,1)),
+        min: new Date(1900,0,1),
         
         /**
          * Highest selectable date (inclusive)
@@ -189,7 +189,7 @@ Example:
          * @type Date
          * @default 31/12/2100
          */
-        max: new Date(Date.UTC(2100,11,31)),
+        max: new Date(2100,11,31),
         
         /**
          * Show only a single year at a time
@@ -261,10 +261,10 @@ Example:
             year: curYear
           };
           
-          date = new Date(Date.UTC(curYear, curMonth-1, 1));
+          date = new Date(curYear, curMonth-1, 1);
           startPoint = (date.getDay() - this.startDayOfWeek + 7) % 7;
           month.name = Intl.DateTimeFormat(this.locale, {month: 'long', year: 'numeric' }).format(date);
-          date = new Date(Date.UTC(curYear, curMonth, 0));
+          date = new Date(curYear, curMonth, 0);
           endPoint = date.getDate();      
           
           for(i=0;i<startPoint;i++){
@@ -272,7 +272,7 @@ Example:
           }
           
           for(i=1;i<=endPoint;i++){
-            var thisDate = new Date(Date.UTC(curYear, curMonth-1, i));
+            var thisDate = new Date(curYear, curMonth-1, i);
             month.days.push({
               n:i,
               day: this.intl.day(thisDate),
@@ -303,7 +303,7 @@ Example:
         var year = data.year;
         if(day && month && year){
           console.log("set date?");
-          this.date = new Date(Date.UTC(year, month-1, day));
+          this.date = new Date(year, month-1, day);
         }
       },
 
@@ -313,8 +313,8 @@ Example:
         setTimeout(function(){
           
           var monthElements = that.shadowRoot.querySelectorAll(".month");
-          var startLoadedDateOutsideTriggerRange = new Date(Date.UTC(monthElements[that.triggerRange].dataset.year,monthElements[that.triggerRange].dataset.month*1-1,1));
-          var endLoadedDateOutsideTriggerRange = new Date(Date.UTC(monthElements[monthElements.length - that.triggerRange - 1].dataset.year,monthElements[monthElements.length - that.triggerRange - 1].dataset.month*1-1+1,1));
+          var startLoadedDateOutsideTriggerRange = new Date(monthElements[that.triggerRange].dataset.year,monthElements[that.triggerRange].dataset.month*1-1,1);
+          var endLoadedDateOutsideTriggerRange = new Date(monthElements[monthElements.length - that.triggerRange - 1].dataset.year,monthElements[monthElements.length - that.triggerRange - 1].dataset.month*1-1+1,1);
           
           if(!(that.date >= startLoadedDateOutsideTriggerRange && that.date < endLoadedDateOutsideTriggerRange)){
             that.surroundDate(that.date);
@@ -400,7 +400,7 @@ Example:
         
         this.weekDayNames = [];
         for(var i=this.startDayOfWeek-1;i<this.startDayOfWeek+6;i++){
-          var date = new Date(Date.UTC(2000, 1, i, 0, 0, 0));
+          var date = new Date(2000, 1, i, 0, 0, 0);
           this.weekDayNames.push(new Intl.DateTimeFormat(this.locale, {weekday:'narrow'}).format(date));
         }
         
