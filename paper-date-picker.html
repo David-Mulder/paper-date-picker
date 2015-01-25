@@ -304,6 +304,7 @@ Example:
         if(day && month && year){
           console.log("set date?");
           this.date = new Date(year, month-1, day);
+          this.fire("selection-changed");
         }
       },
 

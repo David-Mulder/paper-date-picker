@@ -16,6 +16,11 @@ and to open the dialog
 
     this.$.picker.open();
 
+Events
+===
+
+The date picker dialog fires `value-changed` and `selection-changed` events when relevant.
+
 @group Paper Elements
 @element paper-date-picker-dialog
 @homepage https://github.com/David-Mulder/paper-date-picker
@@ -274,6 +279,7 @@ and to open the dialog
       this.formattedYear = this.intl.year(this.immediateDate);
       
       this.year = this.immediateDate.getFullYear();
+      this.fire('selection-changed');
     },
     
     open: function() {
@@ -303,9 +309,10 @@ and to open the dialog
     },
     
     setDate: function(){
-      
-      if(this.value <= this.max && this.value >= this.min)
+      if(this.immediateDate <= this.max && this.immediateDate >= this.min){
         this.value = this.immediateDate;
+        this.fire('value-changed');
+      }
     },
     
     pageChanged: function() {
