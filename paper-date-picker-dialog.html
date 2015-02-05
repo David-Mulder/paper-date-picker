@@ -131,7 +131,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
     }
   </style>
 
-  <paper-action-dialog id="dialog" class="date-picker-dialog" backdrop>
+  <paper-action-dialog id="dialog" class="date-picker-dialog" backdrop on-core-overlay-open-completed="{{dialogOpened}}">
     <div id="container">
       <div class="header" layout vertical flex>
         <div class="dayOfWeekContainer selected">{{ dayOfWeek }}</div>
@@ -284,6 +284,9 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
     
     open: function() {
       this.$.dialog.open();
+    },
+
+    dialogOpened: function(){
       this.$.datePicker.refreshScrollPosition();
       this.$.yearPicker.refreshScrollPosition();
     },
