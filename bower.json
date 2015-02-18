@@ -5,7 +5,8 @@
     "core-animated-pages": "Polymer/core-animated-pages#master",
     "paper-dialog": "Polymer/paper-dialog#master",
     "paper-button": "Polymer/paper-button#master",
-    "paper-ripple": "Polymer/paper-ripple#master"
+    "paper-ripple": "Polymer/paper-ripple#master",
+    "moment": "~2.8.3"
   },
   "version": "0.1.4"
 }

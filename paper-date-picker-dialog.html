@@ -154,6 +154,8 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
   </paper-action-dialog>
 </template>
 
+<script src="../moment/min/moment-with-locales.min.js"></script>
+
 <script>
 (function(){
   
@@ -261,23 +263,13 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
     formattedYear: '',
     year: 0,
     page: 0,
-    
-    intl: {},
-    
-    localeChanged: function(){
-      this.intl = {};
-      this.intl.dayOfWeek = Intl.DateTimeFormat(this.locale, {weekday: 'long'}).format
-      this.intl.day = Intl.DateTimeFormat(this.locale, {day: 'numeric'}).format;
-      this.intl.shortMonth = Intl.DateTimeFormat(this.locale, {month: 'short'}).format;
-      this.intl.year = Intl.DateTimeFormat(this.locale, {year: 'numeric'}).format;
-    },
-    
+
     immediateDateChanged: function() {
-      this.dayOfWeek = this.intl.dayOfWeek(this.immediateDate);
-      this.dayOfMonth = this.intl.day(this.immediateDate);
-      this.monthShortName = this.intl.shortMonth(this.immediateDate);
-      this.formattedYear = this.intl.year(this.immediateDate);
-      
+      this.dayOfWeek = moment(this.immediateDate).locale(this.locale).format('dddd');
+      this.dayOfMonth = moment(this.immediateDate).locale(this.locale).format('DD');
+      this.monthShortName = moment(this.immediateDate).locale(this.locale).format('MMM');
+      this.formattedYear = moment(this.immediateDate).locale(this.locale).format('YYYY');
+
       this.year = this.immediateDate.getFullYear();
       this.fire('selection-changed');
     },
@@ -351,12 +343,14 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
     },
     
     ready:function() {
+      if(!this.locale){
+        this.locale = navigator.language;
+      }
       if(this.value){
         this.valueChanged();
         
         this.immediateDate = this.value;
       }
-      this.localeChanged();
       this.immediateDateChanged();
     }
     

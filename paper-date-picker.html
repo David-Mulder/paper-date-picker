@@ -151,6 +151,8 @@ Example:
   
 </template>
 
+<script src="../moment/min/moment-with-locales.min.js"></script>
+
 <script>
 
   (function(){
@@ -237,10 +239,6 @@ Example:
       months: [],
       
       nonNumericDates: false,
-      
-      intl: {
-        
-      },
 
       renderMonths: function(start,end){
         start = cleanMonthDateArrayObject(start);
@@ -263,7 +261,7 @@ Example:
           
           date = new Date(curYear, curMonth-1, 1);
           startPoint = (date.getDay() - this.startDayOfWeek + 7) % 7;
-          month.name = Intl.DateTimeFormat(this.locale, {month: 'long', year: 'numeric' }).format(date);
+          month.name = moment(date).locale(this.locale).format('MMMM YYYY');
           date = new Date(curYear, curMonth, 0);
           endPoint = date.getDate();      
           
@@ -275,7 +273,7 @@ Example:
             var thisDate = new Date(curYear, curMonth-1, i);
             month.days.push({
               n:i,
-              day: this.intl.day(thisDate),
+              day: moment(thisDate).locale(this.locale).format('D'),
               enabled: thisDate >= this.min && thisDate <= this.max
             });
           }
@@ -289,11 +287,6 @@ Example:
           }
           
         }
-      },
-      
-      localeChanged: function(){
-        this.intl = {};
-        this.intl.day = Intl.DateTimeFormat(this.locale, {day: 'numeric' }).format;
       },
 
       pickDate: function(e){
@@ -398,11 +391,15 @@ Example:
       },
 
       ready: function(){
-        
+
+        if(!this.locale){
+          this.locale = navigator.language;
+        }
+
         this.weekDayNames = [];
         for(var i=this.startDayOfWeek-1;i<this.startDayOfWeek+6;i++){
           var date = new Date(2000, 1, i, 0, 0, 0);
-          this.weekDayNames.push(new Intl.DateTimeFormat(this.locale, {weekday:'narrow'}).format(date));
+          this.weekDayNames.push(moment(date).locale(this.locale).format('dd'));
         }
         
         //Infininte scrolling doesn't work (nicely) on mobile devices, so
@@ -415,7 +412,6 @@ Example:
           }
         }
 
-        this.localeChanged();
         this.surroundDate(this.date);
         this.dateChanged();
 
