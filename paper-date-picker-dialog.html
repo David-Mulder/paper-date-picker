@@ -52,7 +52,6 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
   
   html /deep/ .date-picker-dialog .header .dayOfMonthContainer {
     cursor: pointer;
-    display:flex;
     align-items:center;
     justify-content:center;
   }
@@ -60,7 +59,6 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
   html /deep/ .date-picker-dialog .header .monthContainer {
     cursor: pointer;
     font-size: 24px;
-    display:flex;
     align-items:center;
     justify-content:center;
     min-height:24px;
@@ -70,7 +68,6 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
   html /deep/ .date-picker-dialog .header .yearContainer {
     cursor: pointer;
     font-size: 24px;
-    display:flex;
     align-items:center;
     justify-content:center;
     min-height:24px;
@@ -108,8 +105,6 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
     
     /* the second selector is for the polyfill version */
     html /deep/ .date-picker-dialog >  #container , html /deep/ .date-picker-dialog #scroller >  #container {
-      display:flex;
-      flex-direction: row;
       overflow:hidden;
     }
     
@@ -132,8 +127,8 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
   </style>
 
   <paper-action-dialog id="dialog" class="date-picker-dialog" backdrop on-core-overlay-open-completed="{{dialogOpened}}">
-    <div id="container">
-      <div class="header" layout vertical flex>
+    <div id="container" horizontal layout>
+      <div class="header" vertical layout flex>
         <div class="dayOfWeekContainer selected">{{ dayOfWeek }}</div>
         <div class="monthContainer selected" on-tap="{{ showDatePicker }}" id="month" flex><span>{{ monthShortName }}</span></div>
         <div class="dayOfMonthContainer selected" on-tap="{{ showDatePicker }}" id="day" flex><span>{{ dayOfMonth }}</span></div>

@@ -64,8 +64,6 @@ Example:
     }
     
     .days{
-      display: flex;
-      flex-wrap: wrap;
       width: 100%;
       align-content: stretch;
       min-height: 210px;
@@ -76,7 +74,6 @@ Example:
       text-align: center;
       margin: 3px;
       font-size: 13px;
-      display: flex;
       align-items: center;
       justify-content: center;
     }
@@ -125,7 +122,7 @@ Example:
     <template repeat="{{ month in months }}">
       <div class="month" data-month="{{month.number}}" data-year="{{month.year}}">
         <h1>{{month.name}}</h1>
-          <div class="days">
+          <div class="days" horizontal layout wrap>
           
           <template repeat="{{name in weekDayNames}}">
             <div class="day title">{{name}}</div>
