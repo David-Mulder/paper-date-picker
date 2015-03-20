@@ -21,6 +21,8 @@ Example:
 <link href="../polymer/polymer.html" rel="import">
 <link href="../paper-ripple/paper-ripple.html" rel="import">
 
+<script src="../moment/min/moment-with-locales.min.js"></script>
+
 <polymer-element name="paper-date-picker">
 
 <template>
@@ -64,9 +66,12 @@ Example:
     }
     
     .days{
+      display: -webkit-flex;
       display: flex;
+      -webkit-flex-wrap: wrap;
       flex-wrap: wrap;
       width: 100%;
+      -webkit-align-content: stretch;
       align-content: stretch;
       min-height: 210px;
     }
@@ -76,8 +81,11 @@ Example:
       text-align: center;
       margin: 3px;
       font-size: 13px;
+      display: -webkit-flex;
       display: flex;
+      -webkit-align-items: center;
       align-items: center;
+      -webkit-justify-content: center;
       justify-content: center;
     }
     
@@ -150,8 +158,6 @@ Example:
   </div>
   
 </template>
-
-<script src="../moment/min/moment-with-locales.min.js"></script>
 
 <script>
 

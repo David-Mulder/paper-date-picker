@@ -34,6 +34,8 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
 <link href="paper-date-picker.html" rel="import">
 <link href="paper-year-picker.html" rel="import">
 
+<script src="../moment/min/moment-with-locales.min.js"></script>
+
 <style shim-shadowdom>
   html /deep/ .date-picker-dialog::shadow #scroller {
     padding:0px;
@@ -52,16 +54,22 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
   
   html /deep/ .date-picker-dialog .header .dayOfMonthContainer {
     cursor: pointer;
+    display:-webkit-flex;
     display:flex;
+    -webkit-align-items:center;
     align-items:center;
+    -webkit-justify-content:center;
     justify-content:center;
   }
   
   html /deep/ .date-picker-dialog .header .monthContainer {
     cursor: pointer;
     font-size: 24px;
+    display:-webkit-flex;
     display:flex;
+    -webkit-align-items:center;
     align-items:center;
+    -webkit-justify-content:center;
     justify-content:center;
     min-height:24px;
     font-weight: 300;
@@ -70,8 +78,11 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
   html /deep/ .date-picker-dialog .header .yearContainer {
     cursor: pointer;
     font-size: 24px;
+    display:-webkit-flex;
     display:flex;
+    -webkit-align-items:center;
     align-items:center;
+    -webkit-justify-content:center;
     justify-content:center;
     min-height:24px;
     font-weight: 400;
@@ -108,7 +119,9 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
     
     /* the second selector is for the polyfill version */
     html /deep/ .date-picker-dialog >  #container , html /deep/ .date-picker-dialog #scroller >  #container {
+      display:-webkit-flex;
       display:flex;
+      -webkit-flex-direction: row;
       flex-direction: row;
       overflow:hidden;
     }
@@ -153,8 +166,6 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
 
   </paper-action-dialog>
 </template>
-
-<script src="../moment/min/moment-with-locales.min.js"></script>
 
 <script>
 (function(){
