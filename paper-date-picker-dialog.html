@@ -11,7 +11,7 @@ Material Design: <a href="http://www.google.com/design/spec/components/pickers.h
 Example:
 
     <paper-date-picker-dialog id="picker" date="2000/1/1"></paper-date-picker-dialog>
-
+    
 and to open the dialog
 
     this.$.picker.open();
@@ -26,13 +26,10 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
 @homepage https://github.com/David-Mulder/paper-date-picker
 -->
 
-<script src="../moment/min/moment-with-locales.min.js"></script>
-
 <link href="../polymer/polymer.html" rel="import">
 <link href="../paper-dialog/paper-action-dialog.html" rel="import">
 <link href="../paper-button/paper-button.html" rel="import">
 <link href="../core-animated-pages/core-animated-pages.html" rel="import">
-<link href="../core-media-query/core-media-query.html" rel="import">
 
 <link href="paper-date-picker.html" rel="import">
 <link href="paper-year-picker.html" rel="import">
@@ -47,37 +44,39 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
     color: rgba(255,255,255,.5);
     background-color: #009688;
   }
-
+  
   html /deep/ .date-picker-dialog .header .dayOfWeekContainer {
     padding: 5px;
     background-color: #00695C;
-    min-height:17px;
   }
-
+  
   html /deep/ .date-picker-dialog .header .dayOfMonthContainer {
     cursor: pointer;
+    display:flex;
     align-items:center;
     justify-content:center;
   }
-
+  
   html /deep/ .date-picker-dialog .header .monthContainer {
     cursor: pointer;
     font-size: 24px;
+    display:flex;
     align-items:center;
     justify-content:center;
     min-height:24px;
     font-weight: 300;
   }
-
+  
   html /deep/ .date-picker-dialog .header .yearContainer {
     cursor: pointer;
     font-size: 24px;
+    display:flex;
     align-items:center;
     justify-content:center;
     min-height:24px;
     font-weight: 400;
   }
-
+  
   html /deep/ .date-picker-dialog .datePickerContainer {
     height: 255px;
     width: 280px;
@@ -85,11 +84,11 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
   html /deep/ .date-picker-dialog #datePicker {
     width: 280px;
   }
-
+  
   html /deep/ .date-picker-dialog .selected {
     color: #FFFFFF;
   }
-
+  
   @media only screen and (orientation : portrait) {
     html /deep/ .date-picker-dialog .header .yearContainer{
       padding-bottom:10px;
@@ -106,49 +105,39 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
     html /deep/ .date-picker-dialog {
       width:570px;
     }
-
-    html /deep/ .date-picker-dialog .header {
-      width: 290px;
-    }
-
+    
     /* the second selector is for the polyfill version */
     html /deep/ .date-picker-dialog >  #container , html /deep/ .date-picker-dialog #scroller >  #container {
+      display:flex;
+      flex-direction: row;
       overflow:hidden;
     }
-
+    
     html /deep/ .date-picker-dialog .header .dayOfMonthContainer {
       font-size: 89px;
       min-height: 89px;
     }
   }
-
+  
 </style>
 
 <polymer-element name="paper-date-picker-dialog">
-
+  
 <template>
 
   <style>
     :host {
-
+      
     }
   </style>
 
-  <core-media-query query="orientation : landscape" queryMatches="{{landscape}}"></core-media-query>
-
   <paper-action-dialog id="dialog" class="date-picker-dialog" backdrop on-core-overlay-open-completed="{{dialogOpened}}">
-    <div id="container" horizontal?="{{landscape}}" vertical?="{{!landscape}}" layout>
-      <div class="header" vertical layout flex?="{{landscape}}">
+    <div id="container">
+      <div class="header" layout vertical flex>
         <div class="dayOfWeekContainer selected">{{ dayOfWeek }}</div>
-        <div class="monthContainer selected" on-tap="{{ showDatePicker }}" id="month" horizontal layout center-justified flex>
-          <span horizontal layout center>{{ monthShortName }}</span>
-        </div>
-        <div class="dayOfMonthContainer selected" on-tap="{{ showDatePicker }}" id="day" horizontal layout center-justified flex>
-          <span horizontal layout center>{{ dayOfMonth }}</span>
-        </div>
-        <div class="yearContainer" id="year" on-tap="{{ showYearPicker }}" horizontal layout center-justified flex>
-          <span horizontal layout center>{{ formattedYear }}</span>
-        </div>
+        <div class="monthContainer selected" on-tap="{{ showDatePicker }}" id="month" flex><span>{{ monthShortName }}</span></div>
+        <div class="dayOfMonthContainer selected" on-tap="{{ showDatePicker }}" id="day" flex><span>{{ dayOfMonth }}</span></div>
+        <div class="yearContainer" id="year" on-tap="{{ showYearPicker }}" flex><span>{{ formattedYear }}</span></div>
       </div>
       <core-animated-pages transitions="cross-fade" class="datePickerContainer" selected="{{page}}">
         <section>
@@ -165,9 +154,11 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
   </paper-action-dialog>
 </template>
 
+<script src="../moment/min/moment-with-locales.min.js"></script>
+
 <script>
 (function(){
-
+  
   var dayOfWeekNames = [
     'Monday',
     'Tuesday',
@@ -177,7 +168,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
     'Saturday',
     'Sunday'
   ];
-
+  
   var monthNames = [
     'JAN',
     'FEB',
@@ -195,7 +186,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
 
   Polymer('paper-date-picker-dialog', {
     publish: {
-
+      
       /**
        * `value`, the selected date.
        *
@@ -204,7 +195,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
        * @default undefined
        */
       value: undefined,
-
+      
       /**
        * immediateDate, the currently selected
        * date. Even before hitting 'ok'.
@@ -214,7 +205,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
        * @default today
        */
       immediateDate: new Date(),
-
+        
       /**
        * Lowest selectable date (inclusive)
        *
@@ -223,7 +214,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
        * @default 1/1/1900
        */
       min: new Date(1900,0,1),
-
+      
       /**
        * Highest selectable date (inclusive)
        *
@@ -232,7 +223,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
        * @default 31/12/2100
        */
       max: new Date(2100,11,31),
-
+        
       /**
        * Show only a single year at a time
        * `'auto'` will cause this to be
@@ -244,28 +235,28 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
        * @default 'auto'
        */
       infiniteScrolling: 'auto',
-
+        
       /**
        * Locale setting per the HTML5 Intl API
-       *
+       * 
        * @attribute locale
        * @type Array
        * @default user system
-       *
+       * 
        */
       locale: undefined,
-
+      
       /**
        * Start day of week, expressed as 0-6
-       *
+       * 
        * @attribute startDayOfWeek
        * @type Integer
        * @default 1
-       *
+       * 
        */
       startDayOfWeek: 1
     },
-
+    
     dayOfWeek: '',
     dayOfMonth: 0,
     monthShortName: '',
@@ -282,7 +273,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
       this.year = this.immediateDate.getFullYear();
       this.fire('selection-changed');
     },
-
+    
     open: function() {
       this.$.dialog.open();
     },
@@ -291,34 +282,34 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
       this.$.datePicker.refreshScrollPosition();
       this.$.yearPicker.refreshScrollPosition();
     },
-
+    
     yearChanged: function() {
         var newDate = this.immediateDate.setYear(this.year);
         if(newDate < this.min){
-          this.immediateDate = new Date(this.min);
+          this.immediateDate = new Date(this.min); 
         }else if(newDate > this.max){
-          this.immediateDate = new Date(this.max);
+          this.immediateDate = new Date(this.max); 
         }else{
-          this.immediateDate = new Date(newDate);
+          this.immediateDate = new Date(newDate); 
         }
       this.page = 0;
     },
-
+    
     showYearPicker: function() {
       this.page = 1;
     },
-
+    
     showDatePicker: function() {
       this.page = 0;
     },
-
+    
     setDate: function(){
       if(this.immediateDate <= this.max && this.immediateDate >= this.min){
         this.value = this.immediateDate;
         this.fire('value-changed');
       }
     },
-
+    
     pageChanged: function() {
       if (this.page == 0) {
         this.$.day.classList.add("selected");
@@ -332,37 +323,37 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
       this.$.datePicker.refreshScrollPosition();
       this.$.yearPicker.refreshScrollPosition();
     },
-
+    
     minChanged: function(){
       if(typeof this.min == "string"){
         this.min = new Date(this.min);
       }
     },
-
+    
     maxChanged: function(){
       if(typeof this.max == "string"){
         this.max = new Date(this.max);
       }
     },
-
+    
     valueChanged: function(){
       if(typeof this.value == "string"){
         this.value = new Date(this.value);
       }
     },
-
+    
     ready:function() {
       if(!this.locale){
         this.locale = navigator.language;
       }
       if(this.value){
         this.valueChanged();
-
+        
         this.immediateDate = this.value;
       }
       this.immediateDateChanged();
     }
-
+    
   });
 })();
 </script>
