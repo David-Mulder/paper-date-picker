@@ -1,4 +1,4 @@
-Just a couple of quick notes: This hasn't been updated in awhile (not supported in Polymer 1.0) and has a lot of open issues. I hope to find some time in the coming weeks to update it, but at least wanted to leave a note here warning users.
+Just a couple of quick notes: This hasn't been updated in awhile (not supported in Polymer 1.0) and has a lot of open issues. I hope to find some time in the coming weeks to update it (learning the Polymer 1.0 API right now), but at least wanted to leave a note here warning users.
 
 paper-date-picker
 =================
