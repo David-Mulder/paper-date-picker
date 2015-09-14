@@ -34,6 +34,8 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
 <link href="paper-date-picker.html" rel="import">
 <link href="paper-year-picker.html" rel="import">
 
+<script src="../moment/min/moment-with-locales.min.js"></script>
+
 <style shim-shadowdom>
   html /deep/ .date-picker-dialog::shadow #scroller {
     padding:0px;
@@ -52,16 +54,22 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
   
   html /deep/ .date-picker-dialog .header .dayOfMonthContainer {
     cursor: pointer;
+    display:-webkit-flex;
     display:flex;
+    -webkit-align-items:center;
     align-items:center;
+    -webkit-justify-content:center;
     justify-content:center;
   }
   
   html /deep/ .date-picker-dialog .header .monthContainer {
     cursor: pointer;
     font-size: 24px;
+    display:-webkit-flex;
     display:flex;
+    -webkit-align-items:center;
     align-items:center;
+    -webkit-justify-content:center;
     justify-content:center;
     min-height:24px;
     font-weight: 300;
@@ -70,8 +78,11 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
   html /deep/ .date-picker-dialog .header .yearContainer {
     cursor: pointer;
     font-size: 24px;
+    display:-webkit-flex;
     display:flex;
+    -webkit-align-items:center;
     align-items:center;
+    -webkit-justify-content:center;
     justify-content:center;
     min-height:24px;
     font-weight: 400;
@@ -108,7 +119,9 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
     
     /* the second selector is for the polyfill version */
     html /deep/ .date-picker-dialog >  #container , html /deep/ .date-picker-dialog #scroller >  #container {
+      display:-webkit-flex;
       display:flex;
+      -webkit-flex-direction: row;
       flex-direction: row;
       overflow:hidden;
     }
@@ -261,23 +274,13 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
     formattedYear: '',
     year: 0,
     page: 0,
-    
-    intl: {},
-    
-    localeChanged: function(){
-      this.intl = {};
-      this.intl.dayOfWeek = Intl.DateTimeFormat(this.locale, {weekday: 'long'}).format
-      this.intl.day = Intl.DateTimeFormat(this.locale, {day: 'numeric'}).format;
-      this.intl.shortMonth = Intl.DateTimeFormat(this.locale, {month: 'short'}).format;
-      this.intl.year = Intl.DateTimeFormat(this.locale, {year: 'numeric'}).format;
-    },
-    
+
     immediateDateChanged: function() {
-      this.dayOfWeek = this.intl.dayOfWeek(this.immediateDate);
-      this.dayOfMonth = this.intl.day(this.immediateDate);
-      this.monthShortName = this.intl.shortMonth(this.immediateDate);
-      this.formattedYear = this.intl.year(this.immediateDate);
-      
+      this.dayOfWeek = moment(this.immediateDate).locale(this.locale).format('dddd');
+      this.dayOfMonth = moment(this.immediateDate).locale(this.locale).format('DD');
+      this.monthShortName = moment(this.immediateDate).locale(this.locale).format('MMM');
+      this.formattedYear = moment(this.immediateDate).locale(this.locale).format('YYYY');
+
       this.year = this.immediateDate.getFullYear();
       this.fire('selection-changed');
     },
@@ -351,12 +354,14 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
     },
     
     ready:function() {
+      if(!this.locale){
+        this.locale = navigator.language;
+      }
       if(this.value){
         this.valueChanged();
         
         this.immediateDate = this.value;
       }
-      this.localeChanged();
       this.immediateDateChanged();
     }
     

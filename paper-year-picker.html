@@ -11,6 +11,8 @@ Copyright (c) 2014 David Mulder and Benjamin Monjoie
 <link href="../polymer/polymer.html" rel="import">
 <link href="../paper-button/paper-button.html" rel="import">
 
+<script src="../moment/min/moment-with-locales.min.js"></script>
+
 <polymer-element name="paper-year-picker">
   
 <template>
@@ -122,20 +124,13 @@ Copyright (c) 2014 David Mulder and Benjamin Monjoie
     yearArray: [],
     // TODO: Why in the world is this a hard coded variable?
     yearElementHeight: 62,
-    
-    intl:{},
-    
-    localeChanged: function(){
-      this.intl = {};
-      this.intl.year = Intl.DateTimeFormat(this.locale, {year: 'numeric'}).format;
-    },
-    
+
     setYearArray: function() {
       this.yearArray = [];
       for (var i = this.min.getFullYear(); i <= this.max.getFullYear(); i++) {
         this.yearArray.push({
           n:i,
-          year: this.intl.year(new Date(i,1,1))
+          year: moment(new Date(i,1,1)).locale(this.locale).format('YYYY')
         });
       }
     },
@@ -161,7 +156,9 @@ Copyright (c) 2014 David Mulder and Benjamin Monjoie
     },
     
     ready: function(){
-      this.localeChanged();
+      if(!this.locale){
+        this.locale = navigator.language;
+      }
     }
     
   });
