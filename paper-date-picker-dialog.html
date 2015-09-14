@@ -289,6 +289,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
     dialogOpened: function(){
       this.$.datePicker.refreshScrollPosition();
       this.$.yearPicker.refreshScrollPosition();
+      this.$.dialog.resizeHandler();
     },
     
     yearChanged: function() {
